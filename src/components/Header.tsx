@@ -1,14 +1,16 @@
 import { useState } from "react";
 import { Menu, X } from "lucide-react";
+import { Link } from "@tanstack/react-router";
 import { Logo } from "./Logo";
 
 const nav = [
-  { label: "Home", href: "#home" },
-  { label: "About", href: "#about" },
-  { label: "News", href: "#news" },
-  { label: "Clinsights", href: "#clinsights" },
-  { label: "Info-Hub", href: "#info-hub" },
-  { label: "CME", href: "#cme" },
+  { label: "Home", to: "/" as const },
+  { label: "About", to: "/about" as const },
+  { label: "News", to: "/news" as const },
+  { label: "Clinsights", to: "/clinsights" as const },
+  { label: "Info-Hub", to: "/info-hub" as const },
+  { label: "CME", to: "/cme" as const },
+  { label: "Contact", to: "/contact" as const },
 ];
 
 export function Header() {
@@ -16,30 +18,27 @@ export function Header() {
   return (
     <header className="sticky top-0 z-50 backdrop-blur bg-background/85 border-b border-border/60">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 h-16 sm:h-20 flex items-center justify-between gap-4">
-        <a href="#home" aria-label="MediBeez home"><Logo /></a>
+        <Logo />
 
         <nav className="hidden lg:flex items-center gap-1">
-          {nav.map((n, i) => (
-            <a
+          {nav.map((n) => (
+            <Link
               key={n.label}
-              href={n.href}
-              className={`nav-link px-3 py-2 rounded-full text-sm font-medium ${
-                i === 0 ? "bg-accent text-primary" : "text-foreground/80"
-              }`}
+              to={n.to}
+              activeOptions={{ exact: true }}
+              activeProps={{ className: "nav-link px-3 py-2 rounded-full text-sm font-semibold bg-accent text-primary" }}
+              inactiveProps={{ className: "nav-link px-3 py-2 rounded-full text-sm font-medium text-foreground/80" }}
             >
               {n.label}
-            </a>
+            </Link>
           ))}
         </nav>
 
         <div className="hidden sm:flex items-center gap-2">
-          <a href="#cta" className="nav-link px-4 py-2 text-sm font-semibold text-primary">Login</a>
-          <a
-            href="#cta"
-            className="btn-shine inline-flex items-center rounded-full bg-secondary px-5 py-2.5 text-sm font-semibold text-secondary-foreground transition"
-          >
+          <Link to="/login" className="nav-link px-4 py-2 text-sm font-semibold text-primary">Login</Link>
+          <Link to="/signup" className="btn-shine inline-flex items-center rounded-full bg-secondary px-5 py-2.5 text-sm font-semibold text-secondary-foreground transition">
             Sign up
-          </a>
+          </Link>
         </div>
 
         <button
@@ -55,18 +54,18 @@ export function Header() {
         <div className="lg:hidden border-t border-border bg-background">
           <div className="px-4 py-3 flex flex-col gap-1">
             {nav.map((n) => (
-              <a
+              <Link
                 key={n.label}
-                href={n.href}
+                to={n.to}
                 onClick={() => setOpen(false)}
                 className="px-3 py-3 rounded-lg text-sm font-medium hover:bg-accent"
               >
                 {n.label}
-              </a>
+              </Link>
             ))}
             <div className="flex gap-2 pt-2">
-              <a href="#cta" className="flex-1 text-center rounded-full border border-primary px-4 py-2 text-sm font-semibold text-primary">Login</a>
-              <a href="#cta" className="flex-1 text-center rounded-full bg-secondary px-4 py-2 text-sm font-semibold text-secondary-foreground">Sign up</a>
+              <Link to="/login" onClick={() => setOpen(false)} className="flex-1 text-center rounded-full border border-primary px-4 py-2 text-sm font-semibold text-primary">Login</Link>
+              <Link to="/signup" onClick={() => setOpen(false)} className="flex-1 text-center rounded-full bg-secondary px-4 py-2 text-sm font-semibold text-secondary-foreground">Sign up</Link>
             </div>
           </div>
         </div>
