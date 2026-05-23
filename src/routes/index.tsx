@@ -118,18 +118,33 @@ function Home() {
       </section>
 
       {/* VALUES */}
-      <section className="py-16 sm:py-20 bg-accent/40">
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+      <section className="py-16 sm:py-24 relative overflow-hidden" style={{ background: "linear-gradient(135deg, var(--brand-cream) 0%, var(--accent) 100%)" }}>
+        <div className="absolute -top-10 -left-10 w-72 h-72 rounded-full opacity-20" style={{ background: "var(--gradient-cta)" }} />
+        <div className="absolute -bottom-16 -right-10 w-80 h-80 rounded-full opacity-10" style={{ background: "var(--gradient-cta)" }} />
+        <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="text-center">
             <p className="text-sm font-bold tracking-[0.25em] text-secondary">WHAT WE STAND FOR</p>
-            <h2 className="mt-3 text-3xl sm:text-5xl font-extrabold text-primary">Our Core Values</h2>
+            <h2 className="mt-3 text-3xl sm:text-5xl font-extrabold text-primary">
+              Built on values that <span className="text-gradient">empower clinicians</span>
+            </h2>
+            <p className="mt-4 text-muted-foreground max-w-2xl mx-auto">
+              Every feature, every conversation, every course on MediBeez is shaped by these four principles.
+            </p>
           </div>
-          <div className="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
-            {pillars.map((v) => (
-              <div key={v.t} className="card-hover bg-card border border-border rounded-2xl p-6">
-                <v.icon className="text-secondary" size={26} />
-                <h4 className="mt-4 font-bold text-primary">{v.t}</h4>
-                <p className="mt-2 text-sm text-muted-foreground">{v.d}</p>
+          <div className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+            {pillars.map((v, i) => (
+              <div
+                key={v.t}
+                className="tilt-hover group relative bg-card border border-border rounded-2xl p-7 overflow-hidden"
+                style={{ animation: `fade-up .8s ${i * 120}ms both` }}
+              >
+                <div className="absolute inset-x-0 -top-1 h-1 bg-cta-gradient scale-x-0 group-hover:scale-x-100 origin-left transition-transform duration-500" />
+                <div className="h-14 w-14 grid place-items-center rounded-2xl bg-cta-gradient text-white shadow-soft transition group-hover:rotate-12 group-hover:scale-110">
+                  <v.icon size={26} />
+                </div>
+                <h4 className="mt-5 text-lg font-bold text-primary">{v.t}</h4>
+                <p className="mt-2 text-sm text-muted-foreground leading-relaxed">{v.d}</p>
+                <div className="absolute -bottom-6 -right-6 w-24 h-24 rounded-full bg-secondary/10 group-hover:bg-secondary/25 transition" />
               </div>
             ))}
           </div>
