@@ -18,6 +18,7 @@ import { Route as CmeRouteImport } from './routes/cme'
 import { Route as ClinsightsRouteImport } from './routes/clinsights'
 import { Route as AboutRouteImport } from './routes/about'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as ClinsightsSlugRouteImport } from './routes/clinsights.$slug'
 
 const SignupRoute = SignupRouteImport.update({
   id: '/signup',
@@ -64,40 +65,48 @@ const IndexRoute = IndexRouteImport.update({
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ClinsightsSlugRoute = ClinsightsSlugRouteImport.update({
+  id: '/$slug',
+  path: '/$slug',
+  getParentRoute: () => ClinsightsRoute,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
-  '/clinsights': typeof ClinsightsRoute
+  '/clinsights': typeof ClinsightsRouteWithChildren
   '/cme': typeof CmeRoute
   '/contact': typeof ContactRoute
   '/info-hub': typeof InfoHubRoute
   '/login': typeof LoginRoute
   '/news': typeof NewsRoute
   '/signup': typeof SignupRoute
+  '/clinsights/$slug': typeof ClinsightsSlugRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
-  '/clinsights': typeof ClinsightsRoute
+  '/clinsights': typeof ClinsightsRouteWithChildren
   '/cme': typeof CmeRoute
   '/contact': typeof ContactRoute
   '/info-hub': typeof InfoHubRoute
   '/login': typeof LoginRoute
   '/news': typeof NewsRoute
   '/signup': typeof SignupRoute
+  '/clinsights/$slug': typeof ClinsightsSlugRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
-  '/clinsights': typeof ClinsightsRoute
+  '/clinsights': typeof ClinsightsRouteWithChildren
   '/cme': typeof CmeRoute
   '/contact': typeof ContactRoute
   '/info-hub': typeof InfoHubRoute
   '/login': typeof LoginRoute
   '/news': typeof NewsRoute
   '/signup': typeof SignupRoute
+  '/clinsights/$slug': typeof ClinsightsSlugRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -111,6 +120,7 @@ export interface FileRouteTypes {
     | '/login'
     | '/news'
     | '/signup'
+    | '/clinsights/$slug'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -122,6 +132,7 @@ export interface FileRouteTypes {
     | '/login'
     | '/news'
     | '/signup'
+    | '/clinsights/$slug'
   id:
     | '__root__'
     | '/'
@@ -133,12 +144,13 @@ export interface FileRouteTypes {
     | '/login'
     | '/news'
     | '/signup'
+    | '/clinsights/$slug'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AboutRoute: typeof AboutRoute
-  ClinsightsRoute: typeof ClinsightsRoute
+  ClinsightsRoute: typeof ClinsightsRouteWithChildren
   CmeRoute: typeof CmeRoute
   ContactRoute: typeof ContactRoute
   InfoHubRoute: typeof InfoHubRoute
@@ -212,13 +224,32 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/clinsights/$slug': {
+      id: '/clinsights/$slug'
+      path: '/$slug'
+      fullPath: '/clinsights/$slug'
+      preLoaderRoute: typeof ClinsightsSlugRouteImport
+      parentRoute: typeof ClinsightsRoute
+    }
   }
 }
+
+interface ClinsightsRouteChildren {
+  ClinsightsSlugRoute: typeof ClinsightsSlugRoute
+}
+
+const ClinsightsRouteChildren: ClinsightsRouteChildren = {
+  ClinsightsSlugRoute: ClinsightsSlugRoute,
+}
+
+const ClinsightsRouteWithChildren = ClinsightsRoute._addFileChildren(
+  ClinsightsRouteChildren,
+)
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AboutRoute: AboutRoute,
-  ClinsightsRoute: ClinsightsRoute,
+  ClinsightsRoute: ClinsightsRouteWithChildren,
   CmeRoute: CmeRoute,
   ContactRoute: ContactRoute,
   InfoHubRoute: InfoHubRoute,
@@ -229,3 +260,13 @@ const rootRouteChildren: RootRouteChildren = {
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
+
+import type { getRouter } from './router.tsx'
+import type { startInstance } from './start.ts'
+declare module '@tanstack/react-start' {
+  interface Register {
+    ssr: true
+    router: Awaited<ReturnType<typeof getRouter>>
+    config: Awaited<ReturnType<typeof startInstance.getOptions>>
+  }
+}
