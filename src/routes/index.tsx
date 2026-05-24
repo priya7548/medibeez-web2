@@ -1,7 +1,7 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import {
   Users, Lightbulb, Award, MessageCircle, Video, BookOpen, ArrowRight,
-  Sparkles, Globe, Stethoscope, GraduationCap,
+  Sparkles, Globe, Stethoscope, GraduationCap, Heart, Baby, FlaskConical, Activity,
 } from "lucide-react";
 import { PageShell } from "@/components/PageShell";
 import { Bee } from "@/components/Bee";
@@ -20,9 +20,9 @@ export const Route = createFileRoute("/")({
 });
 
 const features = [
-  { icon: Users, title: "Professional Networking", desc: "Connect with doctors across specialties for collaborations, referrals and mutual learning.", to: "/about" as const },
+  { icon: Users, title: "Professional Networking", desc: "Connect with doctors from various specialties, fostering collaborations, referrals and mutual learning.", to: "/about" as const },
   { icon: Lightbulb, title: "Expert Insights", desc: "Stay updated with the latest medical advancements, shared by experts in the field.", to: "/clinsights" as const },
-  { icon: Award, title: "Sponsored CME / CPD", desc: "Access learning modules to expand your knowledge base and earn credit points.", to: "/cme" as const },
+  { icon: Award, title: "Sponsored CME / CPD", desc: "Access a plethora of learning modules to expand your knowledge base and earn credit points.", to: "/cme" as const },
   { icon: MessageCircle, title: "Case Discussions", desc: "Engage in real clinical case discussions with peers and specialists across the globe.", to: "/clinsights" as const },
   { icon: Video, title: "Online Webinars", desc: "Attend live and on-demand webinars led by leading medical educators and researchers.", to: "/cme" as const },
   { icon: BookOpen, title: "Resources Galore", desc: "Explore podcasts, infographics, slideshows and M-Reels curated for busy clinicians.", to: "/info-hub" as const },
@@ -33,6 +33,13 @@ const pillars = [
   { icon: Stethoscope, t: "Clinician First", d: "Built around real clinical workflows." },
   { icon: Sparkles, t: "Continuous Innovation", d: "We evolve with the needs of healthcare." },
   { icon: GraduationCap, t: "Lifelong Learning", d: "Accredited CME at your fingertips." },
+];
+
+const news = [
+  { icon: Heart, tag: "Cardiology", date: "Apr 28, 2026 · 4 min", title: "American Heart Association updates", desc: "A consolidated, evidence-based update from the AHA on heart-failure management.", to: "/news" as const },
+  { icon: Baby, tag: "Pediatrics", date: "Apr 22, 2026 · 5 min", title: "Antibiotic prophylaxis in infants", desc: "An investigator-led, multi-centre randomised open-label trial reports new findings.", to: "/news" as const },
+  { icon: Activity, tag: "Endocrinology", date: "Apr 15, 2026 · 6 min", title: "Insulin Icodec — a once-weekly basal analogue", desc: "Comparative-study results contrast Icodec with standard daily basal regimens.", to: "/news" as const },
+  { icon: FlaskConical, tag: "Research", date: "Apr 10, 2026 · 5 min", title: "Preventing CVD in patients living with HIV", desc: "Phase results offer fresh hope for reducing cardiovascular risk in this cohort.", to: "/news" as const },
 ];
 
 function Home() {
