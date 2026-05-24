@@ -162,54 +162,11 @@ function Home() {
       <section className="py-16 sm:py-24">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="relative bg-cta-gradient rounded-3xl px-6 sm:px-12 py-14 sm:py-20 text-center overflow-hidden shadow-glow">
-      {/* NEWS */}
-      <section className="py-16 sm:py-24">
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <div className="flex items-end justify-between flex-wrap gap-3 mb-10">
-            <div>
-              <p className="text-sm font-bold tracking-[0.25em] text-secondary">GLOBAL HEALTHCARE</p>
-              <h2 className="mt-3 text-3xl sm:text-5xl font-extrabold text-primary">
-                Stay up-to-date with <span className="text-gradient">MediBeez News</span>
-              </h2>
-              <p className="mt-3 text-muted-foreground max-w-xl">The best place to read the latest insights and trends in medicine.</p>
-            </div>
-            <Link to="/news" className="inline-flex items-center gap-1 text-secondary font-semibold hover:translate-x-1 transition">
-              View all news <ArrowRight size={16} />
-            </Link>
-          </div>
-          <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
-            {news.map((n) => (
-              <Link key={n.title} to={n.to} className="card-hover group bg-card border border-border rounded-2xl overflow-hidden block">
-                <div className="h-32 bg-cta-gradient relative grid place-items-center">
-                  <n.icon size={48} className="text-white/90 transition group-hover:scale-110" />
-                  <span className="absolute top-3 left-3 rounded-full bg-white/25 backdrop-blur px-3 py-1 text-xs font-bold text-white uppercase tracking-wider">{n.tag}</span>
-                </div>
-                <div className="p-5">
-                  <p className="text-xs text-muted-foreground">{n.date}</p>
-                  <h3 className="mt-2 font-bold text-primary leading-snug">{n.title}</h3>
-                  <p className="mt-2 text-sm text-muted-foreground leading-relaxed">{n.desc}</p>
-                  <span className="mt-4 inline-flex items-center gap-1 text-secondary text-sm font-semibold">
-                    Read more <ArrowRight size={14} className="transition group-hover:translate-x-1" />
-                  </span>
-                </div>
-              </Link>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* CTA */}
-      <section className="py-16 sm:py-24">
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <div className="relative bg-cta-gradient rounded-3xl px-6 sm:px-12 py-14 sm:py-20 text-center overflow-hidden shadow-glow">
             <div className="absolute top-6 left-6 sm:top-10 sm:left-10 bee-fly">
               <Bee size={72} />
             </div>
             <div className="absolute bottom-6 right-6 sm:bottom-10 sm:right-10 bee-float">
               <Bee size={60} />
-            </div>
-            <div className="absolute bottom-6 right-6 sm:bottom-10 sm:right-10 bee-float">
-              <Bee size={56} />
             </div>
             <h2 className="text-3xl sm:text-5xl font-extrabold text-white relative">Ready to join our community?</h2>
             <p className="mt-4 text-white/90 max-w-2xl mx-auto relative">
